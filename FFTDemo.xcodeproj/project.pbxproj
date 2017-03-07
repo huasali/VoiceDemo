@@ -15,7 +15,6 @@
 		56F057871DC9820000E762EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56F057851DC9820000E762EF /* LaunchScreen.storyboard */; };
 		56F057921DC9820000E762EF /* FFTDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F057911DC9820000E762EF /* FFTDemoTests.m */; };
 		56F0579D1DC9820000E762EF /* FFTDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F0579C1DC9820000E762EF /* FFTDemoUITests.m */; };
-		56F057AF1DC9831D00E762EF /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F057AE1DC9831D00E762EF /* libmp3lame.a */; };
 		56F057B21DC9B83C00E762EF /* ShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F057B11DC9B83C00E762EF /* ShowView.m */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +52,6 @@
 		56F057981DC9820000E762EF /* FFTDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FFTDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F0579C1DC9820000E762EF /* FFTDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FFTDemoUITests.m; sourceTree = "<group>"; };
 		56F0579E1DC9820000E762EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		56F057AD1DC9831D00E762EF /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
-		56F057AE1DC9831D00E762EF /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		56F057B01DC9B83C00E762EF /* ShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowView.h; sourceTree = "<group>"; };
 		56F057B11DC9B83C00E762EF /* ShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,7 +61,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56F057AF1DC9831D00E762EF /* libmp3lame.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,8 +110,6 @@
 				56F0577E1DC9820000E762EF /* ViewController.m */,
 				56F057B01DC9B83C00E762EF /* ShowView.h */,
 				56F057B11DC9B83C00E762EF /* ShowView.m */,
-				56F057AD1DC9831D00E762EF /* lame.h */,
-				56F057AE1DC9831D00E762EF /* libmp3lame.a */,
 				56F057801DC9820000E762EF /* Main.storyboard */,
 				56F057831DC9820000E762EF /* Assets.xcassets */,
 				56F057851DC9820000E762EF /* LaunchScreen.storyboard */,

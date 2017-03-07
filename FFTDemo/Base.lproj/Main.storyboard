@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,31 +31,17 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="174" id="Nzj-hp-9uH"/>
                                     <constraint firstAttribute="width" constant="174" id="WNb-fO-vEj"/>
                                 </constraints>
-                                <state key="normal" title="录音"/>
+                                <state key="normal" title="点我开始"/>
                                 <connections>
                                     <action selector="startRAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C94-Fl-hUC"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMC-en-aGd">
-                                <rect key="frame" x="73" y="423" width="174" height="62"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="174" id="hj8-ax-E9h"/>
-                                    <constraint firstAttribute="height" constant="62" id="mtt-bv-tD2"/>
-                                </constraints>
-                                <state key="normal" title="播放"/>
-                                <connections>
-                                    <action selector="startPAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uOF-WO-Q7m"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wMC-en-aGd" firstAttribute="top" secondItem="oSd-rr-oJg" secondAttribute="bottom" constant="40" id="74c-63-Ufg"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="oSd-rr-oJg" secondAttribute="bottom" constant="185" id="4Il-KK-OiO"/>
                             <constraint firstItem="oSd-rr-oJg" firstAttribute="top" secondItem="ao0-EH-9gn" secondAttribute="bottom" constant="45" id="BFU-Mi-LGi"/>
                             <constraint firstItem="oSd-rr-oJg" firstAttribute="top" secondItem="ao0-EH-9gn" secondAttribute="bottom" constant="45" id="BVy-XA-5M5"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="wMC-en-aGd" secondAttribute="bottom" constant="83" id="D6H-1r-G6l"/>
-                            <constraint firstItem="wMC-en-aGd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EF7-N7-47e"/>
-                            <constraint firstItem="wMC-en-aGd" firstAttribute="top" secondItem="oSd-rr-oJg" secondAttribute="bottom" constant="40" id="KUx-3u-wuc"/>
                             <constraint firstAttribute="trailing" secondItem="ao0-EH-9gn" secondAttribute="trailing" id="Xkl-ex-miw"/>
                             <constraint firstItem="ao0-EH-9gn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cYH-Ef-ykd"/>
                             <constraint firstItem="ao0-EH-9gn" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="x1B-Yj-p92"/>
@@ -63,14 +49,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bofangBtn" destination="wMC-en-aGd" id="jho-Sd-b6V"/>
                         <outlet property="luyinBtn" destination="oSd-rr-oJg" id="E2L-Rv-mV8"/>
                         <outlet property="showView" destination="ao0-EH-9gn" id="CZz-kn-WKp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2055" y="-953"/>
+            <point key="canvasLocation" x="-2263" y="-973"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="uN0-vd-u2c">

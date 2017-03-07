@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *luyinBtn;
 @property (weak, nonatomic) IBOutlet UIButton *bofangBtn;
 @property (weak, nonatomic) IBOutlet UIView *showView;
-@property (atomic, strong) NSMutableArray *m_pointWavArray;
+@property (atomic, strong) NSMutableArray *pointArr;
 
 @end
 
@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initAudio];
-    self.m_pointWavArray = [[NSMutableArray alloc]init];
+    self.pointArr = [[NSMutableArray alloc]init];
      sView = [[ShowView alloc]initWithFrame:CGRectMake(0, 0, self.showView.frame.size.width, self.showView.frame.size.height)];
     [self.showView addSubview:sView];
     reloadTime = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(reloadState:) userInfo:nil repeats:YES];
@@ -40,8 +40,8 @@
 }
 
 - (void)reloadState:(NSTimer *)t{
-    if (self.m_pointWavArray) {
-        sView.m_pointWavArray = [NSMutableArray arrayWithArray:self.m_pointWavArray];
+    if (self.pointArr) {
+        sView.pointArr = [NSMutableArray arrayWithArray:self.pointArr];
         [sView setNeedsDisplay];
     }
 }
@@ -54,11 +54,11 @@
     
     if ([_captureSession isRunning]) {
         [_captureSession stopRunning];
-        [btn setTitle:@"开始录音" forState:UIControlStateNormal];
+        [btn setTitle:@"开始" forState:UIControlStateNormal];
     }
     else{
        [_captureSession startRunning];
-        [btn setTitle:@"停止录音" forState:UIControlStateNormal];
+        [btn setTitle:@"停止" forState:UIControlStateNormal];
     }
     
 }
@@ -93,7 +93,7 @@
     if([_captureSession canAddOutput:_captureAudioDataOutput]) {
         
         [_captureSession addOutput:_captureAudioDataOutput];
-        //指定代理 增加并行线程
+        //指定代理 增加线程
         dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
         [_captureAudioDataOutput setSampleBufferDelegate:self queue:queue];
         [_captureAudioDataOutput connectionWithMediaType:AVMediaTypeAudio];
@@ -117,14 +117,21 @@
             long x2 = frame[i*2];
             short int w = x1 | x2;
             float x = 10.0 + i * (self.showView.frame.size.width - 20) / d;
-            float y = self.showView.frame.size.height/2.0f+ (self.showView.frame.size.height*0.5) * (w > 32767.0?32767.0:w) / 32767.0 ;
+            NSLog(@"w = %i",w);//波形高度
+            
+//            if (w < 100&&w>-100) { //去小声音
+//                w = 0;
+//            }
+            float height = (self.showView.frame.size.height*0.5) *( (w > 32767.0?32767.0:w) / 32767.0);
+            
+            float y = self.showView.frame.size.height/2.0f+ (height>self.showView.frame.size.height/2.0f?self.showView.frame.size.height/2.0f:height) ;
             NSValue *pValue = [NSValue valueWithCGPoint:CGPointMake(x, y)];
             [dataArr addObject:pValue];
         }
     }
+    
     CFRelease(blockBuffer);
-    self.m_pointWavArray = [NSMutableArray arrayWithArray:dataArr];
-
+    self.pointArr = [NSMutableArray arrayWithArray:dataArr];
 }
 
 
