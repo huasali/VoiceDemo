@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 #import "ShowView.h"
+#import "JHAudioRecorder.h"
 
-@interface ViewController ()<AVCaptureAudioDataOutputSampleBufferDelegate>{
+@interface ViewController ()<JHAudioRecordDelegate>{
     ShowView *sView;
     NSTimer *reloadTime;
 }
@@ -29,14 +30,18 @@
  */
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self initAudio];
+    
+    [[JHAudioRecorder shareAudioRecorder] initAudioWithWidth:self.showView.frame.size.width andHeight:self.showView.frame.size.height];
+    [[JHAudioRecorder shareAudioRecorder] setDelegate:self];
+    
     self.pointArr = [[NSMutableArray alloc]init];
-     sView = [[ShowView alloc]initWithFrame:CGRectMake(0, 0, self.showView.frame.size.width, self.showView.frame.size.height)];
+    
+    sView = [[ShowView alloc]initWithFrame:CGRectMake(0, 0, self.showView.frame.size.width, self.showView.frame.size.height)];
     [self.showView addSubview:sView];
-    reloadTime = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(reloadState:) userInfo:nil repeats:YES];
+    
+    reloadTime = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(reloadState:) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:reloadTime forMode:NSRunLoopCommonModes];
-
+    
 }
 
 - (void)reloadState:(NSTimer *)t{
@@ -45,6 +50,29 @@
         [sView setNeedsDisplay];
     }
 }
+
+- (void)reloadValueWithArr:(NSArray *)valueArr{
+    NSMutableArray *showArr = [[NSMutableArray alloc]init];
+    for (int i  = 0; i < [valueArr count]; i++) {
+        NSNumber *number = valueArr[i];
+        float x = 10.0 + i * (self.showView.frame.size.width - 20) / 100;
+        float height = (self.showView.frame.size.height*0.5) *[number doubleValue];
+        
+        float y = self.showView.frame.size.height/2.0f+ (height>self.showView.frame.size.height/2.0f?self.showView.frame.size.height/2.0f:height) ;
+        NSValue *pValue = [NSValue valueWithCGPoint:CGPointMake(x, y)];
+        [showArr addObject:pValue];
+    }
+    
+    self.pointArr = [NSMutableArray arrayWithArray:showArr];
+}
+
+- (void)reloadOutValueWithArr:(NSArray *)valueArr{
+    if (valueArr) {
+        self.pointArr = [NSMutableArray arrayWithArray:valueArr];
+    }
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -52,15 +80,17 @@
 - (IBAction)startRAction:(id)sender {
     UIButton *btn = sender;
     
-    if ([_captureSession isRunning]) {
-        [_captureSession stopRunning];
-        [btn setTitle:@"开始" forState:UIControlStateNormal];
+    if (![[JHAudioRecorder shareAudioRecorder].captureSession isRunning]) {
+        if ([[JHAudioRecorder shareAudioRecorder] startRecording]) {
+            [[JHAudioRecorder shareAudioRecorder].captureSession startRunning];
+            [btn setTitle:@"停止" forState:UIControlStateNormal];
+        }
     }
     else{
-       [_captureSession startRunning];
-        [btn setTitle:@"停止" forState:UIControlStateNormal];
+        [[JHAudioRecorder shareAudioRecorder] stopRecording];
+        [[JHAudioRecorder shareAudioRecorder].captureSession stopRunning];
+        [btn setTitle:@"开始" forState:UIControlStateNormal];
     }
-    
 }
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -69,72 +99,17 @@
 
 - (IBAction)startPAction:(id)sender {
     
-}
-
-- (void)initAudio{
-    
-    _captureSession = [[AVCaptureSession alloc]init];
-    
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    [audioSession setActive:YES error:nil];
-    
-    NSError *error = nil;
-    
-    AVCaptureDevice *audioDev = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
-    AVCaptureDeviceInput *audioIn = [[AVCaptureDeviceInput alloc]initWithDevice:audioDev error:&error];
-    
-    if ([_captureSession canAddInput:audioIn]) {
-        [_captureSession addInput:audioIn];
-    }
-    
-    
-    _captureAudioDataOutput = [[AVCaptureAudioDataOutput alloc] init];
-    if([_captureSession canAddOutput:_captureAudioDataOutput]) {
-        
-        [_captureSession addOutput:_captureAudioDataOutput];
-        //指定代理 增加线程
-        dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
-        [_captureAudioDataOutput setSampleBufferDelegate:self queue:queue];
-        [_captureAudioDataOutput connectionWithMediaType:AVMediaTypeAudio];
-    }
-}
-
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
-    
-    NSMutableArray *dataArr = [[NSMutableArray alloc]init];
-    AudioBufferList audioBufferList;
-    CMBlockBufferRef blockBuffer;
-    CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sampleBuffer, NULL, &audioBufferList, sizeof(audioBufferList), NULL, NULL, 0, &blockBuffer);
-    for( int y=0; y< audioBufferList.mNumberBuffers; y++ ){
-        
-        AudioBuffer audioBuffer = audioBufferList.mBuffers[y];
-        Byte *frame = (Byte *)audioBuffer.mData;
-        int d = audioBuffer.mDataByteSize/2;
-        for(long i=0; i<d; i++)
-        {
-            long x1 = frame[i*2+1]<<8;
-            long x2 = frame[i*2];
-            short int w = x1 | x2;
-            float x = 10.0 + i * (self.showView.frame.size.width - 20) / d;
-            NSLog(@"w = %i",w);//波形高度
-            
-//            if (w < 100&&w>-100) { //去小声音
-//                w = 0;
-//            }
-            float height = (self.showView.frame.size.height*0.5) *( (w > 32767.0?32767.0:w) / 32767.0);
-            
-            float y = self.showView.frame.size.height/2.0f+ (height>self.showView.frame.size.height/2.0f?self.showView.frame.size.height/2.0f:height) ;
-            NSValue *pValue = [NSValue valueWithCGPoint:CGPointMake(x, y)];
-            [dataArr addObject:pValue];
+    if (![[JHAudioRecorder shareAudioRecorder].audioPlayer isPlaying]) {
+        NSString *pathStr = [[NSBundle mainBundle] pathForResource:@"Kuba Oms - My Love" ofType:@"mp3"];
+        if (pathStr) {
+            [[JHAudioRecorder shareAudioRecorder] playRecordingWith:pathStr];
         }
     }
+    else{
+        [[JHAudioRecorder shareAudioRecorder] stopPlaying];
+    }
     
-    CFRelease(blockBuffer);
-    self.pointArr = [NSMutableArray arrayWithArray:dataArr];
 }
-
-
 
 
 @end

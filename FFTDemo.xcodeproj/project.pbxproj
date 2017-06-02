@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36A51D731EE10422008695DA /* Kuba Oms - My Love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 36A51D6E1EE10422008695DA /* Kuba Oms - My Love.mp3 */; };
+		36A51D741EE10422008695DA /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36A51D701EE10422008695DA /* libmp3lame.a */; };
+		36A51D751EE10422008695DA /* JHAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A51D721EE10422008695DA /* JHAudioRecorder.m */; };
 		56F057791DC9820000E762EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F057781DC9820000E762EF /* main.m */; };
 		56F0577C1DC9820000E762EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F0577B1DC9820000E762EF /* AppDelegate.m */; };
 		56F0577F1DC9820000E762EF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F0577E1DC9820000E762EF /* ViewController.m */; };
@@ -36,6 +39,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		36A51D6E1EE10422008695DA /* Kuba Oms - My Love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Kuba Oms - My Love.mp3"; sourceTree = "<group>"; };
+		36A51D6F1EE10422008695DA /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		36A51D701EE10422008695DA /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		36A51D711EE10422008695DA /* JHAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHAudioRecorder.h; sourceTree = "<group>"; };
+		36A51D721EE10422008695DA /* JHAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHAudioRecorder.m; sourceTree = "<group>"; };
 		56F057741DC9820000E762EF /* FFTDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FFTDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F057781DC9820000E762EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		56F0577A1DC9820000E762EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36A51D741EE10422008695DA /* libmp3lame.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +119,11 @@
 				56F0577E1DC9820000E762EF /* ViewController.m */,
 				56F057B01DC9B83C00E762EF /* ShowView.h */,
 				56F057B11DC9B83C00E762EF /* ShowView.m */,
+				36A51D6E1EE10422008695DA /* Kuba Oms - My Love.mp3 */,
+				36A51D6F1EE10422008695DA /* lame.h */,
+				36A51D701EE10422008695DA /* libmp3lame.a */,
+				36A51D711EE10422008695DA /* JHAudioRecorder.h */,
+				36A51D721EE10422008695DA /* JHAudioRecorder.m */,
 				56F057801DC9820000E762EF /* Main.storyboard */,
 				56F057831DC9820000E762EF /* Assets.xcassets */,
 				56F057851DC9820000E762EF /* LaunchScreen.storyboard */,
@@ -255,6 +269,7 @@
 				56F057871DC9820000E762EF /* LaunchScreen.storyboard in Resources */,
 				56F057841DC9820000E762EF /* Assets.xcassets in Resources */,
 				56F057821DC9820000E762EF /* Main.storyboard in Resources */,
+				36A51D731EE10422008695DA /* Kuba Oms - My Love.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36A51D751EE10422008695DA /* JHAudioRecorder.m in Sources */,
 				56F0577F1DC9820000E762EF /* ViewController.m in Sources */,
 				56F0577C1DC9820000E762EF /* AppDelegate.m in Sources */,
 				56F057B21DC9B83C00E762EF /* ShowView.m in Sources */,
